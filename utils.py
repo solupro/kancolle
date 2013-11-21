@@ -1,5 +1,5 @@
 # coding: utf-8
-import urllib2, cookielib
+import urllib2, urllib, cookielib
 import re
 import config
 
@@ -31,11 +31,16 @@ class Helper(object):
 		}
 		data = urllib.urlencode(data)
 
-		req = urllib2.Request(url=self.POST_URL, data=data, headers=self.HEADERS)
-		resp = opener.open(req)
+		req = urllib2.Request(url=config.POST_URL, data=data, headers=config.HEADERS)
+		resp = self.opener.open(req)
+		#print resp.read()
+
+	def get_play_url(self):
+		req = urllib2.Request(url=configGAME_URL, headers=config.HEADERS)
+		resp = self.opener.open(req)
 		print resp.read()
 
 if __name__ == '__main__':
 	h = Helper()
 	token = h.get_token()
-	print token
+
