@@ -36,11 +36,17 @@ class Helper(object):
 		#print resp.read()
 
 	def get_play_url(self):
-		req = urllib2.Request(url=configGAME_URL, headers=config.HEADERS)
+		req = urllib2.Request(url=config.GAME_URL, headers=config.HEADERS)
 		resp = self.opener.open(req)
-		print resp.read()
+		html = resp.read()
+		play_url = ''
+		try:
+			m = re.search('URL\W+:\W+"(.*)",', html)
+			play_url = m.group(1)
+		except Exception, e:
+			pass
+		return play_url
 
 if __name__ == '__main__':
 	h = Helper()
-	token = h.get_token()
-
+	print h.get_play_url()

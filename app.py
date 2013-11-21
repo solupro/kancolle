@@ -1,6 +1,5 @@
 # coding: utf-8
-from flask import Flask, request, session, g, redirect, url_for, \
-		abort, render_template, flash
+from flask import Flask, request, render_template
 import utils, config
 
 import sys
@@ -13,10 +12,19 @@ app = Flask(__name__)
 def index():
 	url = None
 	if request.method == 'POST':
-		url = r'http://osapi.dmm.com/gadgets/'
-	else:
-		pass
-	print url
+		account = request.form['account']
+		password = request.form['password']
+
+		url = 'Empty!!'
+		helper = utils.Helper()
+		try:
+			token = helper.get_token()
+			if token != '':
+				helper.login(account, password, token)
+				url = helper.get_play_url()
+		except Exception, e:
+			raise e
+
 	return render_template('index.html', play_url=url)
 
 if __name__ == '__main__':
