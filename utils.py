@@ -20,6 +20,33 @@ class Helper(object):
 			pass
 		return token
 
+	def get_new_token(self):
+		#req = urllib2.Request(url=config.LOGIN_URL, headers=config.HEADERS)
+		req = urllib2.Request(url=r'http://solupro.org/login.html', headers=config.HEADERS)
+		resp = self.opener.open(req)
+		html = resp.read()
+		token = {}
+		try:
+			m = re.search('"DMM_TOKEN",\W+"([\d|\w]+)"', html)
+			dmm_token = m.group(1)
+			m = re.search('"token":\W+"([\d|\w]+)"', html)
+			req_token = m.group(1)
+
+			hs = config.HEADERS
+			hs['DMM_TOKEN'] = dmm_token
+			data = {
+				"token" : req_token,
+			}
+			data = urllib.urlencode(data)
+			req = urllib2.Request(url=config.TOKEN_URL, data=data, headers=hs)
+			resp = self.opener.open(req)
+			print resp.read()
+
+		except Exception, e:
+			pass
+		print dmm_token, req_token
+		#return token
+
 	def login(self, account, password, token):
 		data = {
 			"login_id" : account,
@@ -49,4 +76,4 @@ class Helper(object):
 
 if __name__ == '__main__':
 	h = Helper()
-	print h.get_play_url()
+	h.get_new_token()

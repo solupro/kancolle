@@ -5,6 +5,7 @@ PORT = 8677
 DEBUG = True
 
 LOGIN_URL = 'https://www.dmm.com/my/-/login/'
+TOKEN_URL = 'https://www.dmm.com/my/-/login/ajax-get-token/'
 POST_URL = 'https://www.dmm.com/my/-/login/auth/'
 GAME_URL = 'http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'
 
