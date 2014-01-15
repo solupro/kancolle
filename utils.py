@@ -22,28 +22,28 @@ class Helper(object):
 		return token
 
 	def get_new_token(self):
-		req = urllib2.Request(url=config.LOGIN_URL, headers=config.HEADERS)
+		#req = urllib2.Request(url=config.LOGIN_URL, headers=config.HEADERS)
 		#req = urllib2.Request(url=r'http://solupro.org/login.html', headers=config.HEADERS)
-		resp = self.opener.open(req)
-		html = resp.read()
+		#resp = self.opener.open(req)
+		#html = resp.read()
 		token = {}
 		try:
-			m = re.search('"DMM_TOKEN",\W+"([\d|\w]+)"', html)
-			dmm_token = m.group(1)
-			m = re.search('"token":\W+"([\d|\w]+)"', html)
-			req_token = m.group(1)
+		#	m = re.search('"DMM_TOKEN",\W+"([\d|\w]+)"', html)
+		#	dmm_token = m.group(1)
+		#	m = re.search('"token":\W+"([\d|\w]+)"', html)
+		#	req_token = m.group(1)
 
-			hs = config.HEADERS
-			hs['Content-Type'] = 'pplication/x-www-form-urlencoded; charset=UTF-8'
-			hs['X-Requested-With'] = 'XMLHttpRequest'
-			hs['DMM_TOKEN'] = dmm_token
-			data = {
-				"token" : req_token,
-			}
-			data = urllib.urlencode(data)
+		#	hs = config.HEADERS
+		#	hs['Content-Type'] = 'pplication/x-www-form-urlencoded; charset=UTF-8'
+		#	hs['X-Requested-With'] = 'XMLHttpRequest'
+		#	hs['DMM_TOKEN'] = dmm_token
+		#	data = {
+		#		"token" : req_token,
+		#	}
+		#	data = urllib.urlencode(data)
 
-			req = urllib2.Request(url=config.TOKEN_URL, data=data, headers=hs)
-			#req = urllib2.Request(url=config.TOKEN_URL)
+		#	req = urllib2.Request(url=config.TOKEN_URL, data=data, headers=hs)
+			req = urllib2.Request(url=config.TOKEN_URL) #nothing to do, just request
 			resp = self.opener.open(req)
 			#resp = urllib2.urlopen(req)
 			token = json.loads(resp.read())
@@ -102,4 +102,4 @@ if __name__ == '__main__':
 	h = Helper()
 	token = h.get_new_token()
 	h.new_login('account', 'password', token)
-	print g.get_play_url()
+	print h.get_play_url()
