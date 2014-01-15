@@ -10,6 +10,8 @@ POST_URL = 'https://www.dmm.com/my/-/login/auth/'
 GAME_URL = 'http://www.dmm.com/netgame/social/-/gadgets/=/app_id=854854/'
 
 HEADERS = {
-	"User-Agent" : "Mozilla/5.0 (Windows NT 6.2; WOW64; rv:25.0) Gecko/20100101 Firefox/25.0",
+	"User-Agent" 	: "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10.9; rv:26.0) Gecko/20100101 Firefox/26.0",
+	#"Host" 			: "www.dmm.com",
+	#"Referer" 		: "https://www.dmm.com/my/-/login/",
 	#"X-Forwarded-For" : IPADDR,
 }

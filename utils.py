@@ -2,6 +2,7 @@
 import urllib2, urllib, cookielib
 import re
 import config
+import json
 
 class Helper(object):
 	def __init__(self):
@@ -40,15 +41,17 @@ class Helper(object):
 				"token" : req_token,
 			}
 			data = urllib.urlencode(data)
+
 			req = urllib2.Request(url=config.TOKEN_URL, data=data, headers=hs)
-			#resp = self.opener.open(req)
-			resp = urllib2.urlopen(req)
-			print resp.read()
+			#req = urllib2.Request(url=config.TOKEN_URL)
+			resp = self.opener.open(req)
+			#resp = urllib2.urlopen(req)
+			token = json.loads(resp.read())
 
 		except Exception, e:
 			pass
-		print dmm_token, req_token
-		#return token
+		#print dmm_token, req_token
+		return token
 
 	def login(self, account, password, token):
 		data = {
@@ -65,6 +68,24 @@ class Helper(object):
 		resp = self.opener.open(req)
 		#print resp.read()
 
+	def new_login(self, account, password, token):
+		data = {
+			token.get("login_id") : account,
+			token.get("password") : password,
+			"login_id" : account,
+			"password" : password,
+			"path" : '',
+			"save_login_id" : '0',
+			"save_password" : '0',
+			"token" : token.get("token"),
+		}
+		data = urllib.urlencode(data)
+
+		req = urllib2.Request(url=config.POST_URL, data=data, headers=config.HEADERS)
+		resp = self.opener.open(req)
+		#print resp.read()
+
+
 	def get_play_url(self):
 		req = urllib2.Request(url=config.GAME_URL, headers=config.HEADERS)
 		resp = self.opener.open(req)
@@ -79,4 +100,6 @@ class Helper(object):
 
 if __name__ == '__main__':
 	h = Helper()
-	h.get_new_token()
+	token = h.get_new_token()
+	h.new_login('account', 'password', token)
+	print g.get_play_url()

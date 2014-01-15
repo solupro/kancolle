@@ -28,9 +28,9 @@
   <body>
 
     <div class="container">
-
       <form class="form-signin" method="post">
         <h2 class="form-signin-heading">Please sign in</h2>
+        <label class="label label-info"> *通知:DMM改了登录方式,此功能暂时失效!</label>
         <input type="text" name="account" class="form-control" placeholder="DMM Account" required autofocus>
         <input type="password" name="password" class="form-control" placeholder="Password" required>
         <button class="btn btn-lg btn-primary btn-block" type="submit">Get</button>
@@ -51,8 +51,9 @@
       {% autoescape false %}
       var play_url = "{{ play_url }}";
       {% endautoescape %}
-      if (play_url != 'None') {
-        $("#pl").show('slow').find("input").val(play_url);
+      if (play_url != 'None' && play_url != '') {
+        //$("#pl").show('slow').find("input").val(play_url);
+        location.href = play_url;
       }
     });
     </script>
